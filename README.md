@@ -13,7 +13,16 @@ A Python tool for fully verifying **DKIM (DomainKeys Identified Mail)** signatur
 [![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux&logoColor=white)](https://www.linux.org/)
 [![RFC 6376](https://img.shields.io/badge/Standard-RFC%206376-blue)](https://www.rfc-editor.org/rfc/rfc6376)
 
-<img width="1408" height="768" alt="work-dkim-hover" src="https://github.com/user-attachments/assets/bf3c9490-107d-46e0-a293-643a7c74790e" />
+<table>
+<tr>
+<td align="center"><b>Light Mode</b></td>
+<td align="center"><b>Dark Mode</b></td>
+</tr>
+<tr>
+<td><img src="screenshots/gui_light.png" alt="DKIM Verifier — light mode" /></td>
+<td><img src="screenshots/gui_dark.png" alt="DKIM Verifier — dark/cyber mode" /></td>
+</tr>
+</table>
 
 ---
 
@@ -50,8 +59,7 @@ Every email you receive carries a hidden signature. The sending mail server sign
 | `gui.py` | tkinter GUI — file picker, themed results display, light/dark toggle. |
 | `requirements.txt` | `dnspython`, `cryptography` |
 | `verify_bh.py` | Original body-hash-only script — kept as a reference artifact showing the manual approach. |
-| `Test Email.eml` | Test email used during development (Outlook → Gmail, DKIM from `selector1._domainkey.outlook.com`). |
-| `DKIM Signature.txt` | Extracted DKIM-Signature header for reference. |
+| `screenshots/` | GUI screenshots used in this README. |
 
 ---
 
@@ -106,7 +114,7 @@ For a comprehensive guide covering dozens of clients — including Outlook 2003�
 
 ## Step-by-Step Decode Walkthrough
 
-Here is how the tool cracks `Test Email.eml`, decoder-ring style.
+Here is how the tool cracks a real email, decoder-ring style. The example below is from an Outlook-signed message.
 
 **1. Find the ring**
 
@@ -143,7 +151,7 @@ DNS TXT lookup at `selector1._domainkey.outlook.com` returns the RSA public key 
 
 Canonicalize the headers listed in `h=`, append the DKIM-Signature header itself (with `b=` emptied), then verify the `b=` value against the public key using RSA-PKCS1v15 + SHA-256.
 
-**Result on `Test Email.eml`:**
+**Result:**
 
 ```
 Body Hash (bh=):  PASS

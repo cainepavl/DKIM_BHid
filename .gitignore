@@ -2,3 +2,8 @@ __pycache__/
 *.py[cod]
 .claude/settings.local.json
 *.odt
+*.eml
+*.bin
+CLAUDE.md
+DKIM Signature.txt
+take_screenshot.py
