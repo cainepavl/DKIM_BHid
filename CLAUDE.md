@@ -4,18 +4,26 @@
 
 A tool for fully verifying **DKIM (DomainKeys Identified Mail)** signatures on raw `.eml` files, implementing RFC 6376. Verifies both the body hash (`bh=`) and the RSA header signature (`b=`) via live DNS key lookup. Ships with a tkinter GUI with light and dark (cyber) themes.
 
+## Git & GitHub
+
+- **Repo:** https://github.com/cainepavl/DKIM_bh_ID
+- **Branch:** `main`
+- **`.gitignore`:** excludes `__pycache__/`, `*.py[cod]`, `.claude/settings.local.json`, `*.odt`
+- `newTest.eml` exists locally but is untracked — add intentionally if needed
+
 ## Files
 
-| File | Purpose |
-|---|---|
-| `dkim_verifier.py` | Core library + CLI. All verification logic lives here. |
-| `gui.py` | tkinter GUI — file picker, themed results display, light/dark toggle. |
-| `requirements.txt` | `dnspython`, `cryptography` |
-| `verify_bh.py` | Original single-file body-hash script — kept as reference. |
-| `Test Email.eml` | Test email (Outlook → Gmail, DKIM from `selector1._domainkey.outlook.com`). |
-| `raw_body.bin` | Pre-extracted body used by the legacy `verify_bh.py`. |
-| `DKIM Signature.txt` | Extracted DKIM-Signature header from a separate Gmail test email. |
-| `DKIM_Analysis.odt`, `testing.odt` | Working notes and analysis documents. |
+| File | Committed | Purpose |
+|---|---|---|
+| `dkim_verifier.py` | ✓ | Core library + CLI. All verification logic lives here. |
+| `gui.py` | ✓ | tkinter GUI — file picker, themed results display, light/dark toggle. |
+| `requirements.txt` | ✓ | `dnspython`, `cryptography` |
+| `verify_bh.py` | ✓ | Original single-file body-hash script — kept as reference. |
+| `Test Email.eml` | ✓ | Test email (Outlook → Gmail, DKIM from `selector1._domainkey.outlook.com`). |
+| `raw_body.bin` | ✓ | Pre-extracted body used by the legacy `verify_bh.py`. |
+| `DKIM Signature.txt` | ✓ | Extracted DKIM-Signature header from a separate Gmail test email. |
+| `DKIM_Analysis.odt`, `testing.odt` | ✗ | Working notes — excluded from git via `.gitignore`. |
+| `newTest.eml` | ✗ | Untracked test email — add to git intentionally if needed. |
 
 ## How to Run
 
@@ -29,7 +37,7 @@ python3 gui.py
 python3 dkim_verifier.py "Test Email.eml"
 ```
 
-**Getting a valid .eml file from Gmail:** open the email → three-dot menu (⋮) → "Download message".
+**Getting a .eml file:** any email client works — Gmail (⋮ → Download message), Outlook web (⋮ → Save as), Thunderbird (right-click → Save As), Apple Mail (File → Save As). Any email with a `DKIM-Signature` header will verify.
 
 ## Architecture
 
