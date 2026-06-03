@@ -35,6 +35,7 @@ A Python tool for fully verifying **DKIM (DomainKeys Identified Mail)** signatur
 - [Step-by-Step Decode Walkthrough](#step-by-step-decode-walkthrough)
 - [Privacy & Safety](#privacy--safety)
 - [Workflow & Implementation](#workflow--implementation)
+- [Testing](#testing)
 - [License](#license)
 
 ---
@@ -59,6 +60,7 @@ Every email you receive carries a hidden signature. The sending mail server sign
 | `gui.py` | tkinter GUI — file picker, themed results display, light/dark toggle. |
 | `requirements.txt` | `dnspython`, `cryptography` |
 | `verify_bh.py` | Original body-hash-only script — kept as a reference artifact showing the manual approach. |
+| `test_dkim_verifier.py` | Unit + integration tests for `dkim_verifier.py` (41 tests, no external network calls). |
 | `screenshots/` | GUI screenshots used in this README. |
 
 ---
@@ -203,6 +205,31 @@ The DKIM-Signature header is appended last with the `b=` value emptied, and no t
 ### Signature Verification
 
 The RSA public key is fetched from DNS (`selector._domainkey.domain` TXT record, `p=` field), loaded with the `cryptography` library, and used to verify the `b=` value with RSA-PKCS1v15 + SHA-256.
+
+---
+
+## Testing
+
+The test suite covers all core logic in `dkim_verifier.py` — parsing, canonicalization, hashing, RSA signature verification, and full end-to-end `verify_email` integration (with DNS mocked so no network calls are needed).
+
+```bash
+python3 -m unittest test_dkim_verifier -v
+```
+
+**41 tests across 8 test classes:**
+
+| Class | Coverage |
+|---|---|
+| `TestParseEml` | CRLF/LF separators, empty body, missing separator error |
+| `TestSplitHeaders` | Simple and folded (tab/space continuation) headers |
+| `TestParseDkimSignature` | All tag parsing, folded headers, case-insensitive match, missing header error |
+| `TestCanonicalizeHeader` | Lowercasing, whitespace collapsing, unfolding, stripping |
+| `TestCanonicalizeBodyRelaxed` | All RFC 6376 §3.4.3 rules — CRLF normalization, whitespace, trailing blank lines |
+| `TestVerifyBodyHash` | SHA-256 and SHA-1 paths, match/mismatch, tamper detection |
+| `TestVerifySignature` | Valid RSA signature, invalid signature, tampered data, whitespace in `b=` value |
+| `TestVerifyEmail` | Full integration: `bh=` + `b=` pass, wrong `bh=`, DNS failure, missing DKIM header |
+
+`verify_bh.py` is a hardcoded reference artifact with no importable functions; its logic is fully exercised through the `dkim_verifier.py` tests. The tkinter GUI (`gui.py`) requires a live display and is not covered by automated tests.
 
 ---
 
