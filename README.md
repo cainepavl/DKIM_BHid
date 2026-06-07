@@ -79,6 +79,25 @@ sudo apt install python3-tk        # Debian / Ubuntu
 
 ---
 
+## WSL (Windows Subsystem for Linux)
+
+The GUI mode requires a display backend when running under WSL.
+
+**Windows 11 — WSL 2 with WSLg (recommended)**  
+WSLg ships built into Windows 11 (21H2 and later) and renders GUI apps automatically. No extra display setup needed — just run `python3 gui.py` as normal.
+
+**Windows 10 — WSL 2 without WSLg**  
+Install an X server on the Windows side (e.g. [VcXsrv](https://sourceforge.net/projects/vcxsrv/)), launch it with "Disable access control" checked, then set the display variable before running:
+
+```bash
+export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+python3 gui.py
+```
+
+The CLI mode (`python3 dkim_verifier.py`) has no GUI dependency and works in WSL without any display configuration.
+
+---
+
 ## How to Use
 
 ### GUI (recommended)
