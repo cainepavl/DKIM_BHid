@@ -4,7 +4,7 @@ So we built a decoder ring — one that speaks RFC 6376.
 
 ---
 
-# DKIM Body Hash (bh=) Integrity Verifier
+# 🕵️ DKIM Body Hash (bh=) Integrity Verifier
 
 A Python tool for fully verifying **DKIM (DomainKeys Identified Mail)** signatures on raw `.eml` files, implementing [RFC 6376](https://www.rfc-editor.org/rfc/rfc6376). Drop in any email, and it verifies both the body hash (`bh=`) and the RSA header signature (`b=`) via live DNS key lookup — no manual header extraction required.
 
@@ -26,7 +26,7 @@ A Python tool for fully verifying **DKIM (DomainKeys Identified Mail)** signatur
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 - [The Secret Code](#the-secret-code)
 - [Project Structure](#project-structure)
@@ -37,10 +37,11 @@ A Python tool for fully verifying **DKIM (DomainKeys Identified Mail)** signatur
 - [Workflow & Implementation](#workflow--implementation)
 - [Testing](#testing)
 - [License](#license)
+- [Contact/Connect](#contactconnect)
 
 ---
 
-## The Secret Code
+## 💡 The Secret Code
 
 Every email you receive carries a hidden signature. The sending mail server signs it before delivery, and any recipient — or anyone curious enough to look — can verify it. That standard is DKIM.
 
@@ -52,7 +53,7 @@ Every email you receive carries a hidden signature. The sending mail server sign
 
 ---
 
-## Project Structure
+## 🗂️ Project Structure
 
 | File | Purpose |
 |---|---|
@@ -65,7 +66,7 @@ Every email you receive carries a hidden signature. The sending mail server sign
 
 ---
 
-## Prerequisites
+## ⬇️ Prerequisites
 
 ```bash
 Python 3.x
@@ -79,7 +80,7 @@ sudo apt install python3-tk        # Debian / Ubuntu
 
 ---
 
-## WSL (Windows Subsystem for Linux)
+## 🐧 WSL (Windows Subsystem for Linux)
 
 The GUI mode requires a display backend when running under WSL.
 
@@ -98,7 +99,7 @@ The CLI mode (`python3 dkim_verifier.py`) has no GUI dependency and works in WSL
 
 ---
 
-## How to Use
+## 🚀 How to Use
 
 ### GUI (recommended)
 
@@ -133,7 +134,7 @@ For a comprehensive guide covering dozens of clients — including Outlook 2003�
 
 ---
 
-## Step-by-Step Decode Walkthrough
+## 🔑 Step-by-Step Decode Walkthrough
 
 Here is how the tool cracks a real email, decoder-ring style. The example below is from an Outlook-signed message.
 
@@ -185,7 +186,7 @@ Signature  (b=):  PASS
 
 ---
 
-## Privacy & Safety
+## 🔒 Privacy & Safety
 
 - The `.eml` file is read locally and never transmitted anywhere.
 - The only network call is a DNS TXT lookup to fetch the signing domain's public key — the exact same lookup every receiving mail server performs automatically when the email is delivered.
@@ -193,7 +194,7 @@ Signature  (b=):  PASS
 
 ---
 
-## Workflow & Implementation
+## 🔧 Workflow & Implementation
 
 ### Parsing
 
@@ -227,7 +228,7 @@ The RSA public key is fetched from DNS (`selector._domainkey.domain` TXT record,
 
 ---
 
-## Testing
+## 🧪 Testing
 
 The test suite covers all core logic in `dkim_verifier.py` — parsing, canonicalization, hashing, RSA signature verification, and full end-to-end `verify_email` integration (with DNS mocked so no network calls are needed).
 
@@ -252,6 +253,16 @@ python3 -m unittest test_dkim_verifier -v
 
 ---
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📩 Contact/Connect
+
+**Caine Pavlosky**
+
+* Email: [cainepavl@outlook.com](mailto:cainepavl@outlook.com)
+* Portfolio: [fairdinkumstudios.com](https://fairdinkumstudios.com/)
+* LinkedIn: [linkedin.com/in/cainepavlosky008](https://linkedin.com/in/cainepavlosky008)
