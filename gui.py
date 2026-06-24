@@ -277,11 +277,11 @@ class DKIMVerifierApp(tk.Tk):
             badge = getattr(self, attr)
             badge.configure(font=fb)
 
-        # Re-apply badge colours using current result state
+        # Re-apply badge colors using current result state
         self._reapply_badges()
 
     def _reapply_badges(self):
-        """Recolour badges to match current result after a theme switch."""
+        """Recolor badges to match current result after a theme switch."""
         t = self._t
         bg = t["bg"]
         for badge in (self._bh_badge, self._b_badge):
@@ -293,7 +293,7 @@ class DKIMVerifierApp(tk.Tk):
             else:
                 badge.configure(bg=bg, fg=t["fg_dim"])
 
-        # b_detail error colour
+        # b_detail error color
         if self._result and self._result.get("b_pass") is False:
             self._b_detail.configure(fg=t["fg_err"])
 
